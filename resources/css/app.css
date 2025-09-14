@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "material-symbols/outlined.css";
+@import "material-symbols/rounded.css";
+@import "material-symbols/sharp.css";
