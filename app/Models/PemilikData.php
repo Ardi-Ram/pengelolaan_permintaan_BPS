@@ -11,15 +11,29 @@ class PemilikData extends Model
 
     protected $table = 'pemilik_data';
 
-    // Pastikan semua field yang akan diisi ada di fillable
-    protected $fillable = ['nama_pemilik', 'instansi', 'email', 'no_wa', 'kode_transaksi', 'perantara_id'];
+    // Kolom yang bisa diisi massal
+    protected $fillable = [
+        'nama_pemilik',  // Nama pemilik data
+        'instansi',      // Nama instansi pemilik
+        'email',         // Email pemilik
+        'no_wa',         // Nomor WhatsApp
+        'kode_transaksi', // Kode transaksi unik
+        'perantara_id'   // ID perantara (jika ada)
+    ];
 
-
+    /**
+     * Relasi ke model PermintaanData
+     * Satu pemilik dapat memiliki banyak permintaan data
+     */
     public function permintaanData()
     {
         return $this->hasMany(PermintaanData::class, 'pemilik_data_id');
     }
 
+    /**
+     * Relasi ke model PerantaraPermintaan
+     * Pemilik data bisa terkait dengan satu perantara
+     */
     public function perantara()
     {
         return $this->belongsTo(PerantaraPermintaan::class, 'perantara_id');

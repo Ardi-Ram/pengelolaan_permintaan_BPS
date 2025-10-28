@@ -1,11 +1,15 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
+
+@section('title', 'Dftar Permintaan Data')
 
 @section('content')
     <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div class="bg-white rounded-lg border border-gray-300 w-full">
             <div class="flex-1">
                 <h1 class="text-2xl font-bold flex items-center p-4 border-b border-gray-300">
-                    <span class="material-symbols-outlined mr-2 text-[28px]">folder</span>
+                    <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 mr-2 text-blue-600">
+                        <span class="material-symbols-outlined  text-[24px] text-blue-600">folder</span>
+                    </span>
                     Daftar Permintaan Data
                 </h1>
 
@@ -45,7 +49,7 @@
                     <div class="overflow-x-auto">
                         <table id="permintaan-table"
                             class="min-w-full border-separate border-spacing-y-2 text-sm text-left text-gray-700">
-                            <thead class="bg-blue-50 text-gray-600 font-semibold text-xs uppercase ">
+                            <thead class=" text-gray-600 font-semibold text-xs uppercase ">
                                 <tr>
                                     <th class="px-4 py-3">No</th>
                                     <th class="px-4 py-3">Kode Transaksi</th>
@@ -121,56 +125,60 @@
                 <!-- Modal Upload -->
                 <!-- Modal Upload -->
                 <div id="uploadModal"
-                    class="fixed inset-0 hidden bg-black bg-opacity-50 z-50 flex items-center justify-center px-4 backdrop-blur-sm">
+                    class="fixed inset-0 hidden bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center px-4">
                     <div
-                        class="bg-white rounded-3xl shadow-2xl w-full max-w-lg p-6 relative animate-fade-in border border-gray-200">
-                        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-yellow-500 text-3xl">upload</span>
+                        class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 relative border border-gray-100 animate-fade-in">
+
+                        <!-- Header -->
+                        <h2 class="text-xl font-semibold text-gray-800 mb-5 flex items-center gap-2 border-b pb-3">
+                            <span class="material-symbols-outlined text-blue-500 text-3xl">cloud_upload</span>
                             Upload Hasil Olahan
                         </h2>
 
-                        {{-- Judul Permintaan --}}
-                        <div class="mb-4 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-lg px-4 py-2">
+                        <!-- Judul Permintaan -->
+                        <div class="mb-4 text-sm text-gray-700 bg-gray-50 border border-gray-200 rounded-md px-4 py-2">
                             <span class="font-semibold">Judul Permintaan:</span>
-                            <span id="judulPermintaan" class="ml-2 italic text-gray-600">-</span>
+                            <span id="judulPermintaan" class="ml-2 italic text-gray-500">-</span>
                         </div>
 
-                        {{-- Informasi Aturan Upload --}}
-                        <div
-                            class="mb-5 p-4 text-sm bg-yellow-50 border-l-4 border-yellow-400 text-yellow-900 rounded-xl shadow-sm">
-                            <p class="font-semibold mb-1">📌 Ketentuan Upload:</p>
+                        <!-- Aturan Upload -->
+                        <div class="mb-5 p-4 text-sm bg-blue-50 border-l-4 border-blue-400 text-blue-900 rounded-md">
+                            <p class="font-semibold mb-1">📘 Ketentuan Upload:</p>
                             <ul class="list-disc list-inside space-y-1">
-                                <li>Ekstensi file: <span class="font-semibold text-yellow-800">.xls, .xlsx, .csv</span></li>
+                                <li>Ekstensi file: <span class="font-semibold text-blue-800">.xls, .xlsx, .csv</span></li>
                                 <li>Data harus telah diverifikasi sebelum diunggah</li>
-                                <li>Maksimum ukuran file: <span class="font-semibold text-yellow-800">10 MB</span></li>
+                                <li>Maksimum ukuran file: <span class="font-semibold text-blue-800">10 MB</span></li>
                             </ul>
                         </div>
 
-                        {{-- Form Upload --}}
+                        <!-- Form Upload -->
                         <form id="uploadForm" method="POST" action="" enctype="multipart/form-data" class="space-y-5">
                             @csrf
                             <label class="block">
                                 <span class="text-gray-700 font-medium text-sm">Pilih File:</span>
                                 <input type="file" name="file_hasil" id="file_hasil" accept=".xls,.xlsx,.csv"
-                                    class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500
-                    file:bg-yellow-600 file:text-white file:font-medium file:px-4 file:py-2 file:rounded-md file:border-none file:cursor-pointer file:hover:bg-yellow-700 transition duration-150 ease-in-out"
+                                    class="mt-2 block w-full text-sm text-gray-700 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500
+                    file:bg-blue-600 file:text-white file:font-medium file:px-4 file:py-2 file:rounded-md file:border-none 
+                    file:cursor-pointer file:hover:bg-blue-700 transition duration-150 ease-in-out"
                                     required>
                                 <div id="uploadError" class="text-sm text-red-600 mt-1 hidden"></div>
                             </label>
 
+                            <!-- Tombol -->
                             <div class="flex justify-end gap-3 pt-2">
                                 <button type="button" onclick="closeUploadModal()"
-                                    class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg shadow-md transition">
+                                    class="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-md transition">
                                     Batal
                                 </button>
                                 <button type="submit"
-                                    class="px-4 py-2 text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 rounded-lg shadow-md transition">
+                                    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition">
                                     Upload
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
+
 
                 <div id="alasanModal"
                     class="hidden fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-center items-center">

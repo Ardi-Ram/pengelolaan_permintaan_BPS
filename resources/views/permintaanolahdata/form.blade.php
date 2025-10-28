@@ -1,4 +1,5 @@
-@extends('layouts.petugas')
+@extends('layouts.app')
+@section('title', 'Forms Permintaan Data')
 
 @section('content')
     <div class="bg-white m-5 rounded-lg border border-gray-300">

@@ -1,5 +1,5 @@
 {{-- resources/views/tabel_dinamis/show.blade.php --}}
-@extends('layouts.petugas')
+@extends('layouts.app')
 
 @section('title', 'Detail Tabel Statistik')
 

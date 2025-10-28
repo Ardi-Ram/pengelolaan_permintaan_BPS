@@ -1,9 +1,13 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
+
+@section('title', 'Upload Link Tabel Statistik')
 
 @section('content')
     <div class="flex-1 m-5 border border-gray-300 rounded-lg bg-white">
         <h1 class="border-b border-gray-300 text-2xl font-bold flex items-center p-4 shadow-sm">
-            <span class="material-symbols-outlined mr-2 text-[28px]">link</span>
+            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 mr-2 text-blue-600">
+                <span class="material-symbols-outlined  text-[24px] text-blue-600">link</span>
+            </span>
             Upload Link Tabel Statistik
         </h1>
 
@@ -143,7 +147,7 @@
                 ],
                 createdRow: function(row, data, dataIndex) {
                     $(row).addClass(
-                        'border-b border-gray-200 bg-white even:bg-gray-50 shadow-md rounded-md');
+                        'border-b border-gray-200 bg-white shadow-sm rounded-md');
                     $('td', row).addClass('px-4 py-3 text-sm text-gray-700');
                 },
                 language: {

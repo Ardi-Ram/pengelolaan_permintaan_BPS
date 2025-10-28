@@ -1,4 +1,5 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
+@section('title', 'Dashboard Pengolah')
 
 @section('content')
     <h1 class="text-2xl font-bold flex items-center gap-2 p-5 bg-white border-b border-gray-200 shadow-sm">
@@ -7,98 +8,67 @@
     </h1>
 
     <!-- Stat Cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-5 bg-white border border-gray-200 shadow-sm m-5 rounded-lg">
-        {{-- Stat Cards Grid: 2x2 --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 col-span-2">
-            @php
-                $stats = [
-                    [
-                        'label' => 'Ditugaskan',
-                        'icon' => 'hourglass_empty',
-                        'bg' => 'bg-yellow-100',
-                        'text' => 'text-yellow-800',
-                        'iconColor' => 'text-yellow-600',
-                        'value' => $antrian,
-                    ],
-                    [
-                        'label' => 'Diproses',
-                        'icon' => 'sync',
-                        'bg' => 'bg-blue-100',
-                        'text' => 'text-blue-800',
-                        'iconColor' => 'text-blue-600',
-                        'value' => $proses,
-                    ],
-                    [
-                        'label' => 'Selesai',
-                        'icon' => 'check_circle',
-                        'bg' => 'bg-green-100',
-                        'text' => 'text-green-800',
-                        'iconColor' => 'text-green-600',
-                        'value' => $selesai,
-                    ],
-                    [
-                        'label' => 'Total',
-                        'icon' => 'summarize',
-                        'bg' => 'bg-gray-100',
-                        'text' => 'text-gray-800',
-                        'iconColor' => 'text-gray-600',
-                        'value' => $total,
-                    ],
-                ];
-            @endphp
+    <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-5 bg-white border border-gray-200 shadow-sm m-5 rounded-lg">
+        @php
+            $stats = [
+                [
+                    'label' => 'Ditugaskan',
+                    'icon' => 'hourglass_empty',
+                    'bg' => 'bg-yellow-100',
+                    'text' => 'text-yellow-800',
+                    'iconColor' => 'text-yellow-600',
+                    'value' => $antrian,
+                ],
+                [
+                    'label' => 'Diproses',
+                    'icon' => 'sync',
+                    'bg' => 'bg-blue-100',
+                    'text' => 'text-blue-800',
+                    'iconColor' => 'text-blue-600',
+                    'value' => $proses,
+                ],
+                [
+                    'label' => 'Selesai',
+                    'icon' => 'check_circle',
+                    'bg' => 'bg-green-100',
+                    'text' => 'text-green-800',
+                    'iconColor' => 'text-green-600',
+                    'value' => $selesai,
+                ],
+                [
+                    'label' => 'Total',
+                    'icon' => 'summarize',
+                    'bg' => 'bg-gray-100',
+                    'text' => 'text-gray-800',
+                    'iconColor' => 'text-gray-600',
+                    'value' => $total,
+                ],
+            ];
+        @endphp
 
-            @foreach ($stats as $stat)
-                <div
-                    class="{{ $stat['bg'] }} relative border p-4 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
-                    {{-- Icon besar semi transparan sebagai watermark --}}
-                    <span
-                        class="material-symbols-outlined absolute text-[120px] opacity-10 right-2 bottom-0 {{ $stat['iconColor'] }}">
+        @foreach ($stats as $stat)
+            <div
+                class="{{ $stat['bg'] }} relative border p-4 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
+                {{-- Icon besar semi transparan sebagai watermark --}}
+                <span
+                    class="material-symbols-outlined absolute text-[120px] opacity-10 right-2 bottom-0 {{ $stat['iconColor'] }}">
+                    {{ $stat['icon'] }}
+                </span>
+
+                {{-- Konten utama --}}
+                <div class="flex items-center gap-4 relative z-10">
+                    <span class="material-symbols-outlined {{ $stat['iconColor'] }} text-3xl">
                         {{ $stat['icon'] }}
                     </span>
-
-                    {{-- Konten utama --}}
-                    <div class="flex items-center gap-4 relative z-10">
-                        <span class="material-symbols-outlined {{ $stat['iconColor'] }} text-3xl">
-                            {{ $stat['icon'] }}
-                        </span>
-                        <div>
-                            <p class="{{ $stat['text'] }} text-sm font-medium">{{ $stat['label'] }}</p>
-                            <h2 class="text-2xl font-bold {{ $stat['text'] }}">{{ $stat['value'] }}</h2>
-                        </div>
+                    <div>
+                        <p class="{{ $stat['text'] }} text-sm font-medium">{{ $stat['label'] }}</p>
+                        <h2 class="text-2xl font-bold {{ $stat['text'] }}">{{ $stat['value'] }}</h2>
                     </div>
                 </div>
-            @endforeach
-        </div>
-
-
-        <div class=" rounded-xl shadow p-6 text-center relative overflow-hidden">
-            {{-- Watermark icon besar transparan di latar --}}
-            <div class="absolute right-4 bottom-4 opacity-10 text-gray-400 text-[160px] pointer-events-none select-none">
-                <span class="material-symbols-outlined">calendar_month</span>
             </div>
-
-            {{-- Judul --}}
-            <h3 class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2 mb-4 relative z-10">
-                <span class="material-symbols-outlined text-indigo-600 text-[28px]">calendar_today</span>
-                Kalender
-            </h3>
-
-            {{-- Angka Tanggal Besar --}}
-            <div class="relative z-10 text-[90px] font-extrabold text-white leading-none outline-blue">
-                {{ \Carbon\Carbon::now()->format('d') }}
-            </div>
-
-
-            {{-- Hari dan Bulan Tahun --}}
-            <p class="text-lg text-gray-600 mt-2 relative z-10">
-                {{ \Carbon\Carbon::now()->translatedFormat('l, F Y') }}
-            </p>
-        </div>
-
-
-
+        @endforeach
     </div>
-
 
     <!-- Tabel Permintaan Terbaru -->
     <div class="bg-white shadow border border-gray-200 p-6 rounded-xl mx-5 mb-6">

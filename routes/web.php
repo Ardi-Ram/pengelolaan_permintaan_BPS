@@ -103,9 +103,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         // Index page
         Route::get('/', [LinkController::class, 'index'])->name('index');
     });
-
-
-
     // footer content
     Route::prefix('admin/footer-links')->name('admin.footer_links.')->group(function () {
         // Footer Link CRUD
@@ -129,10 +126,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         // Index page
         Route::get('/', [FooterLinkController::class, 'index'])->name('index');
     });
-
-
-
-
     // Category & Subject Management
     Route::resource('/categories', CategoryDataController::class)->except(['show']);
     Route::post('/categories/{category}/subject', [CategoryDataController::class, 'storeSubject'])->name('subject.store');
@@ -144,10 +137,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/perantara', [PerantaraPermintaanController::class, 'store'])->name('perantara.store');
     Route::put('/perantara/{id}', [PerantaraPermintaanController::class, 'update'])->name('perantara.update');
     Route::delete('/perantara/{id}', [PerantaraPermintaanController::class, 'destroy'])->name('perantara.destroy');
-
-
-    // FAQ Management
-    Route::resource('faq', FaqController::class)->except(['show']);
 });
 
 // ==================== Petugas PST Routes ====================
@@ -177,7 +166,7 @@ Route::middleware(['auth', 'role:petugas_pst'])->group(function () {
     Route::post('/tugaskan-pengolah', [PetugasPSTController::class, 'tugaskanPengolah'])->name('tugaskan.pengolah');
     Route::get('/get-permintaan/{id}', [PetugasPSTController::class, 'getPermintaan']);
 
-    // Tabel Dinamis Management
+    // Tabel Dinamis/tabel statistik Management
     Route::get('/tabel-dinamis/create', [TabelDinamisController::class, 'create'])->name('tabel-dinamis.create');
     Route::post('/tabel-dinamis/store', [TabelDinamisController::class, 'store'])->name('tabel-dinamis.store');
     Route::get('/penugasan-tabel-dinamis', [TabelDinamisController::class, 'penugasanIndex'])->name('tabel-dinamis.penugasan');
@@ -193,11 +182,11 @@ Route::middleware(['auth', 'role:petugas_pst'])->group(function () {
     Route::post('/tabel-dinamis/{id}/batalkan', [TabelDinamisController::class, 'batalkanPenugasan'])->name('tabel-dinamis.batalkan');
     Route::get('/tabel-dinamis/{id}', [TabelDinamisController::class, 'show'])->where('id', '[0-9]+')->name('tabel-dinamis.show');
 
-    // Tabel Dinamis Verifikasi
+    // Tabel Dinamis/tabel statistik Verifikasi
     Route::get('/verifikasi-hasil/{id}', [TabelDinamisController::class, 'formVerifikasi'])->name('tabel-dinamis.verifikasi.form');
     Route::post('/verifikasi-hasil/{id}', [TabelDinamisController::class, 'simpanVerifikasi'])->name('tabel-dinamis.verifikasi.simpan');
 
-    // Siaga Tabel Management
+    // Siaga Tabel/Tabel Publikasi Management
     Route::get('/siaga/pst/penugasan', [SiagaTabelDataController::class, 'halamanPst'])->name('siaga.pst.penugasan');
     Route::get('/siaga/pst/data', [SiagaTabelDataController::class, 'dataUntukPst'])->name('siaga.pst.data');
     Route::post('/siaga-tabel/upload-link', [SiagaTabelDataController::class, 'uploadLink'])->name('siaga.pst.upload');
@@ -239,7 +228,7 @@ Route::middleware(['auth', 'role:pengolah_data'])->group(function () {
     Route::get('/pengolah/upload-data/json', [UploadController::class, 'getUploadData'])->name('pengolah.upload.data');
 
 
-    // Tabel Dinamis Management
+    // Tabel Dinamis/tabel statistik Management
     Route::get('/tabel-dinamis', [TabelDinamisController::class, 'tabelDinamisIndex'])->name('tabeldinamis');
     Route::get('/tabel-dinamis/data', [TabelDinamisController::class, 'getTabelDinamis'])->name('tabeldinamis.data');
     Route::post('/tabel-dinamis/apply/{id}', [TabelDinamisController::class, 'applyTabel'])->name('tabeldinamis.apply');
@@ -248,7 +237,7 @@ Route::middleware(['auth', 'role:pengolah_data'])->group(function () {
     Route::get('/tabel-dinamis/upload/data', [TabelDinamisController::class, 'getUploadData'])->name('tabeldinamis.upload.data');
     Route::post('/tabel-dinamis/upload-link/{id}', [TabelDinamisController::class, 'uploadLink'])->name('tabeldinamis.upload.link');
 
-    // Siaga Tabel Management
+    // Siaga Tabel/Tabel Publikasi Management
     Route::get('/siaga/import-data', [SiagaTabelDataController::class, 'showImportForm'])->name('siaga.import.form');
     Route::post('/import', [SiagaTabelDataController::class, 'handleImport'])->name('siaga.import.handle');
     Route::post('/import/simpan', [SiagaTabelDataController::class, 'simpanFinal'])->name('siaga.import.simpan');

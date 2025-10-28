@@ -1,15 +1,5 @@
-@php
-    if (Auth::user()->hasRole('admin')) {
-        $layout = 'layouts.admin';
-    } elseif (Auth::user()->hasRole('petugas_pst')) {
-        $layout = 'layouts.petugas';
-    } else {
-        $layout = 'layouts.pengolah';
-    }
-@endphp
-
-@extends($layout)
-
+@extends('layouts.app')
+@section('title', 'Direktoris Permintaan Data')
 @section('content')
     <div class="bg-white my-5 ml-5 mr-9 rounded-lg border border-gray-300">
         <h2 class="text-xl font-bold p-4 border-b border-gray-300 flex items-center gap-2">
@@ -107,8 +97,10 @@
                         </th>
                         <th>
                             <!-- Trigger Button -->
-                            <button onclick="openHapusModal()" class="bg-red-700 text-white px-4 py-1 rounded text-sm">
-                                Hapus file
+                            <button onclick="openHapusModal()"
+                                class="flex items-center gap-1 bg-red-600  border text-white rounded px-3 py-1  text-xs transition">
+                                <span class="material-symbols-outlined text-base">delete</span>
+                                <span>Hapus</span>
                             </button>
 
                             <!-- Modal -->

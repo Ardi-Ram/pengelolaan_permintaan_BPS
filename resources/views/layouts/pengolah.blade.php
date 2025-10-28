@@ -170,10 +170,10 @@
 <body>
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-lg sticky top-0 self-start h-screen flex flex-col">
+        <aside class="w-64 bg-blue-900 shadow-lg sticky top-0 self-start h-screen flex flex-col">
 
             <header class="p-4 flex justify-between items-center gap-x-2 mb-4  text-lg "> {{-- mb-4 sesuai referensi --}}
-                <a class="flex items-center gap-x-2 font-semibold text-xl text-black" href="#">
+                <a class="flex items-center gap-x-2 font-semibold text-xl text-white" href="#">
                     {{-- text-black sesuai referensi --}}
                     <img src="{{ asset('images/bps-logo.png') }}" alt="Logo BPS" class="h-8 w-auto">
                     Pengolah Data {{-- Judul aplikasi Anda --}}
@@ -181,50 +181,59 @@
             </header>
 
             <nav class="h-[calc(100vh-80px)] py-4 overflow-y-auto custom-scrollbar pr-2 mb-4">
-                <ul class="space-y-2">
+                <ul class="space-y-2 text-white">
 
+                    <!-- Dashboard -->
                     <li>
                         <a href="{{ route('pengolah.dashboard') }}"
-                            class="flex items-center gap-x-3 py-2 px-3 text-sm transition border-b border-gray-300 {{-- Border bawah dan padding sesuai referensi --}}
-                        {{ request()->routeIs('pengolah.dashboard') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
-
-                            <span class="material-symbols-outlined">dashboard</span> Dashboard
+                            class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+           {{ request()->routeIs('pengolah.dashboard')
+               ? 'bg-white/10 backdrop-blur-md text-white'
+               : 'hover:bg-white/10 hover:backdrop-blur-sm text-gray-200' }}">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            Dashboard
                         </a>
                     </li>
-                    <li class="border-b border-gray-300 mt-2">
-                        <div class="px-3 py-2 text-sm text-gray-500 uppercase tracking-wide font-medium">
+
+                    <!-- Permintaan Olah Data -->
+                    <li class="mt-2 border-t border-blue-700 pt-2">
+                        <div class="px-3 py-2 text-xs uppercase tracking-wide font-medium text-gray-300">
                             Permintaan Olah Data
                         </div>
-                        <ul class="ml-2 space-y-1"> {{-- Sub-menu, indentasi, dan spasi --}}
+                        <ul class="ml-2 space-y-1">
                             <li>
                                 <a href="{{ route('pengolah.index') }}"
-                                    class="flex items-center gap-x-3 py-2 px-3 text-sm transition border-b border-gray-300
-                        {{ request()->routeIs('pengolah.index') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
-                                    <span class="material-symbols-outlined">assignment</span> Permintaan Ditugaskan
+                                    class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                   {{ request()->routeIs('pengolah.index')
+                       ? 'bg-white/10 backdrop-blur-md text-white'
+                       : 'hover:bg-white/10 hover:backdrop-blur-sm text-gray-200' }}">
+                                    <span class="material-symbols-outlined">assignment</span>
+                                    Permintaan Ditugaskan
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="border-b border-gray-300 mt-2">
-                        <div class="px-3 py-2 text-sm text-gray-500 uppercase tracking-wide font-medium">
-                            {{-- Styling teks kategori --}}
+                    <!-- Tabel Statistik -->
+                    <li class="border-t border-blue-700 pt-2">
+                        <div class="px-3 py-2 text-xs uppercase tracking-wide font-medium text-gray-300">
                             Tabel Statistik
                         </div>
-                        <ul class="ml-2 space-y-1"> {{-- Sub-menu, indentasi, dan spasi --}}
+                        <ul class="ml-2 space-y-1">
                             <li>
                                 <a href="{{ route('tabeldinamis') }}"
-                                    class="flex items-center gap-x-3 py-2 px-3 text-sm transition {{-- Item sub-menu tanpa border bawah --}}
-                                {{ request()->routeIs('tabeldinamis') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
+                                    class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                   {{ request()->routeIs('tabeldinamis') ? 'bg-blue-700 text-white' : 'hover:bg-blue-800 text-gray-200' }}">
                                     <span class="material-symbols-outlined">list</span>
                                     Daftar Tugas
                                 </a>
                             </li>
-
                             <li>
                                 <a href="{{ route('tabeldinamis.upload.page') }}"
-                                    class="flex items-center gap-x-3 py-2 px-3 text-sm transition
-                                {{ request()->routeIs('tabeldinamis.upload.page') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
+                                    class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                   {{ request()->routeIs('tabeldinamis.upload.page')
+                       ? 'bg-blue-700 text-white'
+                       : 'hover:bg-blue-800 text-gray-200' }}">
                                     <span class="material-symbols-outlined">upload</span>
                                     Upload Link
                                 </a>
@@ -232,25 +241,24 @@
                         </ul>
                     </li>
 
-                    <li class="border-b border-gray-300 mt-2"> {{-- Separator kategori dengan border bawah dan margin atas --}}
-                        <div class="px-3 py-2 text-sm text-gray-500 uppercase tracking-wide font-medium">
+                    <!-- Tabel Publikasi -->
+                    <li class="border-t border-blue-700 pt-2">
+                        <div class="px-3 py-2 text-xs uppercase tracking-wide font-medium text-gray-300">
                             Tabel Publikasi
                         </div>
-                        <ul class="ml-2 space-y-1"> {{-- Sub-menu, indentasi, dan spasi --}}
+                        <ul class="ml-2 space-y-1">
                             <li>
                                 <a href="{{ route('siaga.import.form') }}"
-                                    class="flex items-center gap-x-3 py-2 px-3 text-sm transition
-                                {{ request()->routeIs('siaga.import.form') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
-                                    {{-- Perhatikan, routeIs harus sesuai dengan route yang dibuka --}}
+                                    class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                   {{ request()->routeIs('siaga.import.form') ? 'bg-blue-700 text-white' : 'hover:bg-blue-800 text-gray-200' }}">
                                     <span class="material-symbols-outlined">upload_file</span>
                                     Import & Preview
                                 </a>
                             </li>
-
                             <li>
                                 <a href="{{ route('siaga.penugasan') }}"
-                                    class="flex items-center gap-x-3 py-2 px-3 text-sm transition
-                                {{ request()->routeIs('siaga.penugasan') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
+                                    class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                   {{ request()->routeIs('siaga.penugasan') ? 'bg-blue-700 text-white' : 'hover:bg-blue-800 text-gray-200' }}">
                                     <span class="material-symbols-outlined">person_add</span>
                                     Penugasan PST
                                 </a>
@@ -258,25 +266,31 @@
                         </ul>
                     </li>
 
-                    <li>
+                    <!-- Direktori Data -->
+                    <li class="border-t border-blue-700 pt-2">
                         <a href="{{ route('pengolah.direktori.view') }}"
-                            class="flex items-center gap-x-3 py-2 px-3 text-sm transition border-b border-gray-300
-                        {{ request()->routeIs('pengolah.direktori.view') ? 'bg-blue-50 text-blue-800' : 'text-gray-700 hover:bg-gray-100' }}">
-                            <span class="material-symbols-outlined">folder_open</span> Direktori Data
+                            class="flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+           {{ request()->routeIs('pengolah.direktori.view') ? 'bg-blue-700 text-white' : 'hover:bg-blue-800 text-gray-200' }}">
+                            <span class="material-symbols-outlined">folder_open</span>
+                            Direktori Data
                         </a>
                     </li>
 
-                    <li>
+                    <!-- Logout -->
+                    <li class="border-t border-blue-700 pt-2">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"
-                                class="w-full flex items-center gap-x-3 py-2 px-3 text-sm transition border-b border-gray-300 text-red-600 hover:bg-red-100">
-                                <span class="material-symbols-outlined">logout</span> Logout
+                                class="w-full flex items-center gap-x-3 py-2 px-3 text-sm rounded-md transition
+                    text-red-400 hover:bg-red-600/20">
+                                <span class="material-symbols-outlined">logout</span>
+                                Logout
                             </button>
                         </form>
                     </li>
 
                 </ul>
+
             </nav>
         </aside>
 

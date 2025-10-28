@@ -1,5 +1,5 @@
-@extends('layouts.petugas')
-
+@extends('layouts.app')
+@section('title', 'Verifikasi Permintaan Data')
 @section('content')
     <div class="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">

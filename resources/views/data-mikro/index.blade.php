@@ -1,5 +1,5 @@
-@extends('layouts.petugas')
-
+@extends('layouts.app')
+@section('title', 'Daftar Mikro Data')
 @section('content')
     <div class="p-6">
         <div class="flex justify-between items-center mb-4">

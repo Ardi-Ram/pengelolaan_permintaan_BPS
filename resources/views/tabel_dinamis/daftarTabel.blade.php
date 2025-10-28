@@ -1,9 +1,14 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
+
+@section('title', 'Daftar Tabel Statistik')
 
 @section('content')
     <div class="flex-1 m-5 border border-gray-300 rounded-lg bg-white">
         <h1 class="border-b border-gray-300 text-2xl font-bold flex items-center p-4 shadow-sm">
-            <span class="material-symbols-outlined mr-2 text-[28px]">table_chart</span>
+            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 mr-2 text-blue-600">
+                <span class="material-symbols-outlined  text-[24px] text-blue-600">table_chart</span>
+            </span>
+
             Tabel Statistik Ditugaskan
         </h1>
 
@@ -36,11 +41,12 @@
                 </div>
 
                 <table id="pengolah-table" class="min-w-full divide-y divide-gray-200 text-sm text-left text-gray-700">
-                    <thead class="bg-blue-50 text-gray-600 font-semibold text-xs uppercase">
+                    <thead class=" text-gray-600 font-semibold text-xs uppercase">
                         <tr>
                             <th class="px-4 py-2 text-center">No</th>
                             <th class="px-4 py-2">Judul</th>
                             <th class="px-4 py-2">Kategori</th>
+                            <th class="px-4 py-2">Petugas PST</th>
                             <th class="px-4 py-2">Waktu Dibutuhkan</th>
                             <th class="px-4 py-2">Status</th>
                             <th class="px-4 py-2">Aksi</th>
@@ -111,6 +117,10 @@
                         className: "px-4 py-2"
                     },
                     {
+                        data: 'petugas_pst',
+                        name: 'petugas_pst'
+                    },
+                    {
                         data: 'deadline',
                         className: "px-4 py-2"
                     },
@@ -134,6 +144,11 @@
                         next: `<span class="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 text-sm">→</span>`
                     }
                 },
+                createdRow: function(row, data, dataIndex) {
+                    $(row).addClass(
+                        'border-b border-gray-200 bg-white shadow-sm rounded-md');
+                    $('td', row).addClass('px-4 py-3 text-sm text-gray-700');
+                },
                 dom: 'lftrip',
                 initComplete: function() {
                     $('#custom-length').append($('.dataTables_length select').addClass(
@@ -148,7 +163,7 @@
                 },
                 drawCallback: function() {
                     // Pagination styling
-                    $('.dataTables_paginate').addClass('mt-4 flex justify-center gap-1');
+                    $('.dataTables_paginate').addClass('m-4 flex justify-center gap-1');
                     $('.dataTables_paginate a').addClass(
                         'px-3 py-1 rounded border text-sm text-blue-600 hover:bg-blue-100 transition'
                     );

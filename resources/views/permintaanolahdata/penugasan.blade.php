@@ -1,11 +1,13 @@
-@extends('layouts.petugas')
+@extends('layouts.app')
+
+@section('title', 'Penugasan Permintaan Data')
 
 @section('content')
     <div class="bg-white m-5 rounded-lg border border-gray-300">
         <div class="flex-1">
             <h1 class="text-2xl font-bold flex items-center gap-3 p-4 border-b border-gray-300">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 text-blue-600">
-                    <span class="material-symbols-outlined text-[24px]">person_add</span>
+                    <span class="material-symbols-outlined  text-[28px] text-blue-600">person_add</span>
                 </span>
                 Penugasan Data
             </h1>
@@ -27,8 +29,6 @@
                         </ul>
                     </div>
                 @endif
-
-                {{-- Filter dan search sejajar --}}
 
                 <div class="overflow-x-auto">
                     <table id="permintaan-table"

@@ -1,4 +1,4 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
 
 @section('title', 'Penugasan Tabel SIAGA')
 

@@ -9,15 +9,17 @@ class FooterLink extends Model
 {
     use HasFactory;
 
+    // Kolom yang bisa diisi massal
     protected $fillable = [
-        'footer_link_group_id',
-        'label',
-        'url',
-        'order',
+        'footer_link_group_id', // ID grup footer link terkait
+        'label',                // Label atau teks link
+        'url',                  // URL tujuan link
+        'order',                // Urutan tampil di grup
     ];
 
     /**
-     * Relasi: link milik satu group
+     * Relasi ke model FooterLinkGroup
+     * Footer link ini termasuk dalam satu grup
      */
     public function group()
     {

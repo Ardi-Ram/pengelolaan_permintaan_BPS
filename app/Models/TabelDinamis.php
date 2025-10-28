@@ -11,25 +11,28 @@ class TabelDinamis extends Model
 
     protected $table = 'tabel_statistik';
 
+    /**
+     * Kolom yang bisa diisi massal
+     */
     protected $fillable = [
-        'judul',
-        'deskripsi',
-        'kategori_id',
-        'subject_id',
-        'petugas_pst_id',
-        'pengolah_id',
-        'link_hasil',
-        'link_publish',
-        'status',
-        'deadline',
-        'alasan_penolakan',
-        'verifikasi_pst',       // tambahkan ini
-        'verified_at',          // tambahkan ini
-        'catatan_verifikasi',   // tambahkan ini
+        'judul',                // Judul tabel/statistik
+        'deskripsi',            // Deskripsi tabel/statistik
+        'kategori_id',          // FK ke kategori data
+        'subject_id',           // FK ke subjek
+        'petugas_pst_id',       // FK user petugas PST
+        'pengolah_id',          // FK user pengolah
+        'link_hasil',           // Link file hasil
+        'link_publish',         // Link publikasi
+        'status',               // Status permintaan
+        'deadline',             // Batas waktu penyelesaian
+        'alasan_penolakan',     // Alasan penolakan jika ada
+        'verifikasi_pst',       // Status verifikasi oleh PST
+        'verified_at',          // Waktu verifikasi
+        'catatan_verifikasi',   // Catatan verifikasi
     ];
 
     /**
-     * Relasi ke kategori data.
+     * Relasi ke kategori data
      */
     public function kategori()
     {
@@ -37,7 +40,7 @@ class TabelDinamis extends Model
     }
 
     /**
-     * Relasi ke pengguna yang bertugas sebagai pengolah.
+     * Relasi ke pengguna yang bertugas sebagai pengolah
      */
     public function pengolah()
     {
@@ -45,14 +48,15 @@ class TabelDinamis extends Model
     }
 
     /**
-     * Relasi ke pengguna yang bertugas sebagai petugas PST.
+     * Relasi ke pengguna yang bertugas sebagai petugas PST
      */
     public function petugasPst()
     {
         return $this->belongsTo(User::class, 'petugas_pst_id');
     }
+
     /**
-     * Relasi ke subjek (subject data statistik).
+     * Relasi ke subjek (subject data statistik)
      */
     public function subject()
     {

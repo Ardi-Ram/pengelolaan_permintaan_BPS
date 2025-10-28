@@ -1,4 +1,4 @@
-@extends('layouts.pengolah')
+@extends('layouts.app')
 
 @section('content')
     <div class="max-w-full m-5 border border-gray-300 rounded-lg bg-white">
@@ -6,8 +6,6 @@
             <span class="material-symbols-outlined mr-2 text-[28px]">folder</span>
             Upload Data
         </h1>
-
-        {{-- Notifikasi --}}
         @if ($errors->any())
             <div class="mb-4 p-4 rounded bg-red-100 text-red-800 mx-5">
                 <ul class="list-disc pl-5 text-sm">

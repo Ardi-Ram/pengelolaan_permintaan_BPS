@@ -13,61 +13,68 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasRoles;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Kolom yang bisa diisi massal
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',     // Nama user
+        'email',    // Email user
+        'password', // Password (akan di-hash otomatis)
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Kolom yang disembunyikan saat serialisasi
      */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Casting atribut ke tipe tertentu
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime', // Waktu verifikasi email
+            'password' => 'hashed',            // Password otomatis di-hash
         ];
     }
 
-    // User.php
+    /**
+     * Cek apakah user adalah admin
+     */
     public function isAdmin()
     {
         return $this->hasRole('admin');
     }
 
+    /**
+     * Cek apakah user adalah petugas PST
+     */
     public function isPetugas()
     {
         return $this->hasRole('petugas_pst');
     }
 
+    /**
+     * Cek apakah user adalah pengolah data
+     */
     public function isPengolah()
     {
         return $this->hasRole('pengolah_data');
     }
 
+    /**
+     * Relasi: user sebagai petugas PST menangani permintaan data
+     */
     public function permintaanData()
     {
         return $this->hasMany(PermintaanData::class, 'petugas_pst_id');
     }
 
+    /**
+     * Relasi: user sebagai pengolah data menangani permintaan
+     */
     public function permintaanPengolah()
     {
         return $this->hasMany(PermintaanData::class, 'pengolah_id');

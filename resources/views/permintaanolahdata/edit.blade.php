@@ -1,4 +1,4 @@
-@extends('layouts.petugas')
+@extends('layouts.app')
 
 @section('title', 'Edit Permintaan Data')
 

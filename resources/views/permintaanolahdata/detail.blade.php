@@ -1,4 +1,5 @@
-@extends('layouts.petugas')
+@extends('layouts.app')
+@section('title', 'Detail Permintaan Data')
 @section('content')
     <div class="min-h-screen m-5 bg-white border border-gray-300">
         <div class="mb-8 border-b border-gray-300 p-6">

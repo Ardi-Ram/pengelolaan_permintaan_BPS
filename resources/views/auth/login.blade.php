@@ -15,8 +15,20 @@
 </head>
 
 <body class="antialiased">
+    @if (session('status'))
+        <div class="mb-4 text-sm text-green-600 text-center">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mb-4 text-sm text-red-600 text-center">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="flex items-center justify-center min-h-screen bg-gray-50">
+
         <div class="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden">
             <!-- Bagian kiri -->
             <div
@@ -46,7 +58,7 @@
                 <div class="w-full max-w-sm rounded-lg bg-white">
                     <div class="mb-6 text-center">
                         <span class="material-symbols-outlined text-5xl text-blue-600 mb-2">account_circle</span>
-                        <h1 class="text-3xl font-extrabold text-gray-800">Login</h1>
+                        <h1 class="text-3xl font-extrabold text-blue-600">Login</h1>
                         <p class="text-gray-500 mt-2 text-sm">Silakan masukkan kredensial Anda untuk melanjutkan.</p>
                     </div>
 
@@ -72,19 +84,10 @@
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
                                 placeholder="********" />
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                            <div class="text-right mt-2">
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}"
-                                        class="text-sm text-blue-600 hover:underline">Lupa password?</a>
-                                @endif
-                            </div>
+                           
                         </div>
 
-                        <div class="flex items-center">
-                            <input id="remember_me" type="checkbox" name="remember"
-                                class="rounded border-gray-300 text-blue-600 w-4 h-4" />
-                            <label for="remember_me" class="ml-2 block text-sm text-gray-700">Ingat saya</label>
-                        </div>
+                       
 
                         <button type="submit"
                             class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition duration-300 hover:shadow-lg">

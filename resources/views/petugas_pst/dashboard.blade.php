@@ -1,5 +1,7 @@
 @extends('layouts.petugas')
 
+@section('title', 'Dashboard Petugas Pelayanan Terpadu ')
+
 @section('content')
     <div class="p-6 space-y-6 bg-white m-5 rounded-lg border border-gray-300">
         <h1 class="text-2xl font-semibold text-gray-800">Dashboard Petugas PST</h1>

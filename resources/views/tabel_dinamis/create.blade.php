@@ -1,5 +1,5 @@
-@extends('layouts.petugas')
-
+@extends('layouts.app')
+@section('title', 'Form Tabel Statistik') 
 @section('content')
     <div class="mx-6 my-6">
         <div class="shadow-sm rounded-2xl border border-gray-200 overflow-hidden bg-white">

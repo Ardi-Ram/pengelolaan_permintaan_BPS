@@ -1,5 +1,5 @@
-@extends('layouts.petugas')
-
+@extends('layouts.app')
+@section('title', 'Detail Data Mikro')
 @section('content')
     <div class="max-w-full m-5 p-6 bg-white rounded shadow">
         <h1 class="text-2xl font-bold mb-4">{{ $microData->judul }}</h1>

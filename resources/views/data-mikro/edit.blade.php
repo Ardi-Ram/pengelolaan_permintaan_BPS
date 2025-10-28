@@ -1,5 +1,5 @@
-@extends('layouts.petugas')
-
+@extends('layouts.app')
+@section('title', 'Edit Data Mikro')
 @section('content')
     <div class="m-5 p-6  bg-white rounded shadow">
         <h2 class="text-xl font-semibold mb-6">Edit Micro Data</h2>

@@ -17,8 +17,18 @@ class AdminController extends \Illuminate\Routing\Controller
     {
         $this->middleware('role:admin');
     }
-    public function index()
+    public function index(Request $request)
     {
+        // Ambil tahun yang dipilih dari query (?tahun=2024), default ke tahun ini
+        $tahunDipilih = $request->get('tahun', Carbon::now()->year);
+
+        // Ambil semua tahun yang tersedia di tabel permintaan
+        $tahunTersedia = PermintaanData::selectRaw('YEAR(created_at) as tahun')
+            ->distinct()
+            ->orderBy('tahun', 'desc')
+            ->pluck('tahun');
+
+        // Data utama dashboard
         $data = [
             'petugas_pst' => User::role('petugas_pst')->count(),
             'pengolah_data' => User::role('pengolah_data')->count(),
@@ -27,48 +37,33 @@ class AdminController extends \Illuminate\Routing\Controller
                 'proses' => PermintaanData::where('status', 'proses')->count(),
                 'selesai' => PermintaanData::where('status', 'selesai')->count(),
             ],
+
+            // Label bulan (Jan–Des)
             'bulan' => collect(range(1, 12))->map(function ($m) {
                 return Carbon::create()->month($m)->translatedFormat('F');
             }),
-            'permintaan_bulanan' => collect(range(1, 12))->map(function ($m) {
-                return PermintaanData::whereMonth('created_at', $m)->count();
+
+            // Jumlah permintaan per bulan untuk tahun yang dipilih
+            'permintaan_bulanan' => collect(range(1, 12))->map(function ($m) use ($tahunDipilih) {
+                return PermintaanData::whereYear('created_at', $tahunDipilih)
+                    ->whereMonth('created_at', $m)
+                    ->count();
             }),
 
+            // Statistik total per tahun (untuk chart tahunan)
+            'permintaan_tahunan' => $tahunTersedia->mapWithKeys(function ($thn) {
+                return [$thn => PermintaanData::whereYear('created_at', $thn)->count()];
+            }),
+
+            // Kirim info tahun yang dipilih & daftar tahun ke view
+            'tahun_dipilih' => $tahunDipilih,
+            'tahun_tersedia' => $tahunTersedia,
         ];
 
         return view('admin.index', compact('data'));
     }
 
-    public function logActivity()
-    {
-        $logs = ActivityLog::with('user')->latest()->get();
 
-        $logsByDate = $logs->groupBy(function ($log) {
-            return $log->created_at->format('Y-m-d');
-        });
-
-        $today = Carbon::today();
-
-        $rekapPetugas = User::role('petugas_pst')->withCount([
-            'permintaanData as jumlah_permintaan' => function ($query) use ($today) {
-                $query->whereDate('created_at', $today);
-            }
-        ])->get();
-
-        $rekapPengolah = User::role('pengolah_data')->get()->map(function ($user) use ($today) {
-            $jumlahHasilOlahan = HasilOlahan::whereHas('permintaanData', function ($query) use ($user, $today) {
-                $query->where('pengolah_id', $user->id)
-                    ->whereDate('created_at', $today);
-            })->count();
-
-            return (object)[
-                'name' => $user->name,
-                'jumlah_hasil_olahan' => $jumlahHasilOlahan,
-            ];
-        });
-
-        return view('admin.logActivity', compact('logsByDate', 'rekapPetugas', 'rekapPengolah'));
-    }
     public function userManagement()
     {
         $users = User::with('roles')->whereHas('roles', function ($query) {

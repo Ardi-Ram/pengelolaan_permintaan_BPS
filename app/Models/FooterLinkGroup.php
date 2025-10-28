@@ -9,13 +9,15 @@ class FooterLinkGroup extends Model
 {
     use HasFactory;
 
+    // Kolom yang bisa diisi massal
     protected $fillable = [
-        'name',
-        'order',
+        'name',  // Nama grup footer link
+        'order', // Urutan tampil di halaman
     ];
 
     /**
-     * Relasi: satu group punya banyak links
+     * Relasi: satu grup memiliki banyak FooterLink
+     * Mengurutkan link berdasarkan kolom 'order'
      */
     public function links()
     {

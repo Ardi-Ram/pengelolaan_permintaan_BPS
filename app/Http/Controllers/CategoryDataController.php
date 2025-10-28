@@ -7,18 +7,26 @@ use App\Models\CategoryData;
 
 class CategoryDataController extends Controller
 {
+    /**
+     * Tampilkan semua kategori beserta subject-nya.
+     */
     public function index()
     {
-        $categories = CategoryData::with('subjects')->get(); // with subjects
+        $categories = CategoryData::with('subjects')->get(); // Ambil kategori beserta subject
         return view('admin.kategori', compact('categories'));
     }
 
-
+    /**
+     * Tampilkan form tambah kategori.
+     */
     public function create()
     {
         return view('category_data.create');
     }
 
+    /**
+     * Simpan kategori baru ke database.
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -30,12 +38,18 @@ class CategoryDataController extends Controller
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan');
     }
 
+    /**
+     * Tampilkan form edit kategori.
+     */
     public function edit($id)
     {
         $category = CategoryData::findOrFail($id);
         return view('category_data.edit', compact('category'));
     }
 
+    /**
+     * Perbarui data kategori.
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -48,6 +62,9 @@ class CategoryDataController extends Controller
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui');
     }
 
+    /**
+     * Hapus kategori.
+     */
     public function destroy($id)
     {
         $category = CategoryData::findOrFail($id);
@@ -56,6 +73,9 @@ class CategoryDataController extends Controller
         return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus');
     }
 
+    /**
+     * Tambahkan subject baru pada kategori tertentu.
+     */
     public function storeSubject(Request $request, $categoryId)
     {
         $request->validate([
@@ -70,6 +90,9 @@ class CategoryDataController extends Controller
         return redirect()->route('categories.index')->with('success', 'Subject berhasil ditambahkan');
     }
 
+    /**
+     * Hapus subject berdasarkan ID.
+     */
     public function destroySubject($id)
     {
         $subject = \App\Models\Subject::findOrFail($id);
@@ -77,6 +100,10 @@ class CategoryDataController extends Controller
 
         return redirect()->route('categories.index')->with('success', 'Subject berhasil dihapus');
     }
+
+    /**
+     * Perbarui subject berdasarkan ID.
+     */
     public function updateSubject(Request $request, $id)
     {
         $request->validate([
